@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% include 'components/_style.html' %}
+
+
+    <title>
+        {% block title %}
+
+        {% endblock title %}
+    </title>
+</head>
+
+<body>
+<header>
+    {% for message in messages %}
+    <div class="alert text-center {{ message.tags }}" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    <!-- HEADER NAV START -->
+    {% include 'components/_navbar.html' %}
+    <!-- HEADER NAV END -->
+
+    <!-- HEADER TEXT BLOCK START -->
+    {% include 'components/_poster.html' %}
+    <!-- HEADER TEXT BLOCK END -->
+
+    <!-- HEADER POSTER START -->
+</header>
+
+
+{% block main %}
+
+{% endblock main %}
+
+
+{% include 'components/_footer.html' %}
+
+
+{% include 'components/_script.html' %}
+
+</body>
+
+</html>

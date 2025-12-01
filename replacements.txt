@@ -1,0 +1,2 @@
+django-insecure-0sj86_8(tw+awxc%lik01wn4q-^hgdhdo8nyg@ijbauoelvkg5===>***REMOVED***
+sk_test_===>***STRIPE_KEY_REMOVED***

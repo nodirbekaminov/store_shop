@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+{% block main %}
+
+<main>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="box-element">
+                    <a href="{% url 'cart' %}" class="btn btn-primary rounded">Back</a>
+                    <hr>
+                    <h3>Order products</h3>
+                    <hr>
+                    <div class="cart-row">
+                        <div style="flex:2"><strong></strong></div>
+                        <div style="flex:2"><strong>Product</strong></div>
+                        <div style="flex:1"><strong>Price</strong></div>
+                        <div style="flex:1"><strong>Quantity</strong></div>
+                        <div style="flex:1"><strong>Final price</strong></div>
+                    </div>
+                    {% for item in products %}
+                    {% include 'store/components/_cart_row.html' %}
+                    {% endfor %}
+
+                    <h5>Products: <strong>{{ order.get_cart_total_quantity }}</strong></h5>
+                    <h5>Final price: <strong>{{ order.get_cart_total_price}} $</strong></h5>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="box-element">
+                    <form action="{% url 'payment' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div id="user-info">
+                            <hr>
+                            <h4>Your info</h4>
+                            <hr>
+                            {% if not request.user.user_name and not request.user.last_name %}
+                            <div class="form-field">
+                                {{ customer_form.user_name }}
+                            </div>
+                            <div class="form-field">
+                                {{ customer_form.last_name }}
+                            </div>
+                            {% else %}
+                            <div class="form-field">
+                                Name {{ request.user.first_name }}
+                            </div>
+                            <div class="form-field">
+                                Lastname {{ request.user.last_name }}
+                            </div>
+                            <div class="form-field">
+                                Username {{ request.user.user_name }}
+                            </div>
+                            <div class="form-field">
+                                Email {{ request.user.email }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div id="shipping-info">
+                            <hr>
+                            <h4>Shipping address</h4>
+                            <hr>
+                            {% for field in shipping_form %}
+                            <div class="form-field">
+                                {{ field }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                         <button class="btn btn-success rounded" type="submit">
+                             Payment
+                         </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock main %}
+
+
